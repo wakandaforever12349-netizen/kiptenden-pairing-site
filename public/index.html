@@ -1,1 +1,910 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#071b1b">
+  <meta name="description" content="Kiptenden Youths WhatsApp Bot Pairing Website">
+  <title>Kiptenden Youths | WhatsApp Pairing</title>
+
+  <style>
+    :root {
+      --bg: #061314;
+      --panel: #0d2424;
+      --line: rgba(175, 238, 219, .15);
+      --text: #f2fffb;
+      --muted: #9ab7b2;
+      --green: #38e29d;
+      --green-light: #a0ffd3;
+      --danger: #ff9b9b;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(56,226,157,.13), transparent 30rem),
+        radial-gradient(circle at 90% 30%, rgba(93,228,225,.08), transparent 25rem),
+        linear-gradient(145deg, #061112, #071b1b, #041011);
+      line-height: 1.6;
+    }
+
+    button, input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .container {
+      width: min(1080px, calc(100% - 32px));
+      margin: auto;
+    }
+
+    header {
+      border-bottom: 1px solid var(--line);
+      background: rgba(4,16,17,.88);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(14px);
+    }
+
+    .navbar {
+      min-height: 75px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 45px;
+      height: 45px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      color: #032018;
+      font-size: 23px;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--green-light), var(--green));
+    }
+
+    .brand-name {
+      font-weight: 900;
+      letter-spacing: .5px;
+      font-size: 15px;
+    }
+
+    .brand-sub {
+      color: var(--green);
+      font-size: 10px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    .online {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--green-light);
+      border: 1px solid var(--line);
+      padding: 7px 12px;
+      border-radius: 30px;
+      font-size: 12px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+    }
+
+    main {
+      padding: 55px 0;
+    }
+
+    .hero {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 35px;
+    }
+
+    .eyebrow {
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 3px;
+    }
+
+    h1 {
+      margin: 14px 0;
+      font-size: clamp(32px, 6vw, 54px);
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+    }
+
+    h1 span {
+      color: var(--green);
+    }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 580px;
+      margin: 0 auto;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 28px;
+      background: linear-gradient(145deg, rgba(15,44,43,.94), rgba(6,22,23,.95));
+      box-shadow: 0 20px 60px rgba(0,0,0,.22);
+    }
+
+    .panel h2 {
+      margin: 0 0 6px;
+      font-size: 21px;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+      margin: 24px 0;
+    }
+
+    .tab {
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      padding: 12px;
+      color: var(--muted);
+      background: rgba(0,0,0,.2);
+      font-weight: bold;
+    }
+
+    .tab.active {
+      color: var(--green-light);
+      border-color: var(--green);
+      background: rgba(56,226,157,.1);
+    }
+
+    label {
+      display: block;
+      color: var(--green-light);
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      padding: 15px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.22);
+      color: white;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(56,226,157,.1);
+    }
+
+    input::placeholder {
+      color: #6f908b;
+    }
+
+    .hint {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    .btn {
+      width: 100%;
+      margin-top: 18px;
+      padding: 14px;
+      border: 0;
+      border-radius: 12px;
+      font-weight: 900;
+      color: #032018;
+      background: linear-gradient(135deg, var(--green-light), var(--green));
+      transition: .2s;
+    }
+
+    .btn:hover {
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+    }
+
+    .btn:disabled {
+      opacity: .55;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .secondary {
+      color: var(--green-light);
+      background: rgba(56,226,157,.08);
+      border: 1px solid var(--line);
+    }
+
+    .status {
+      margin-top: 15px;
+      min-height: 24px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+      overflow-wrap: anywhere;
+    }
+
+    .error {
+      color: var(--danger);
+    }
+
+    .success-text {
+      color: var(--green-light);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .code-box, .qr-box {
+      margin-top: 22px;
+      padding: 24px;
+      text-align: center;
+      border: 1px solid rgba(56,226,157,.3);
+      border-radius: 16px;
+      background: rgba(56,226,157,.06);
+    }
+
+    .pair-code {
+      color: var(--green-light);
+      font-size: clamp(28px, 7vw, 44px);
+      font-weight: 900;
+      letter-spacing: 5px;
+      overflow-wrap: anywhere;
+    }
+
+    .qr-box img {
+      width: min(280px, 100%);
+      aspect-ratio: 1;
+      padding: 10px;
+      border-radius: 12px;
+      background: white;
+    }
+
+    .instructions {
+      margin-top: 22px;
+      padding: 17px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.14);
+    }
+
+    .instructions h3 {
+      font-size: 14px;
+      margin-top: 0;
+    }
+
+    .instructions ol {
+      padding-left: 20px;
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .instructions li {
+      margin: 7px 0;
+    }
+
+    .session {
+      padding: 14px;
+      margin-top: 15px;
+      max-height: 170px;
+      overflow: auto;
+      word-break: break-all;
+      border-radius: 10px;
+      background: rgba(0,0,0,.35);
+      font-family: monospace;
+      font-size: 12px;
+    }
+
+    .copy-btn {
+      width: 100%;
+      margin-top: 12px;
+      padding: 12px;
+      border: 1px solid rgba(56,226,157,.3);
+      border-radius: 10px;
+      color: var(--green-light);
+      background: rgba(56,226,157,.08);
+      font-weight: bold;
+    }
+
+    .steps {
+      display: grid;
+      gap: 22px;
+      margin-top: 25px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 38px 1fr;
+      gap: 12px;
+    }
+
+    .step-number {
+      width: 35px;
+      height: 35px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--green);
+      border: 1px solid rgba(56,226,157,.4);
+      background: rgba(56,226,157,.08);
+      font-weight: 900;
+    }
+
+    .step strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .step p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .notice {
+      margin-top: 25px;
+      padding: 14px;
+      border-left: 3px solid var(--green);
+      background: rgba(56,226,157,.05);
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    footer {
+      padding: 25px 0;
+      border-top: 1px solid var(--line);
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    footer strong {
+      color: var(--green-light);
+    }
+
+    @media (max-width: 760px) {
+      main {
+        padding: 38px 0;
+      }
+
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .panel {
+        padding: 22px;
+      }
+
+      .hero {
+        text-align: left;
+      }
+
+      .hero p {
+        margin-left: 0;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .brand-name {
+        font-size: 12px;
+      }
+
+      .online {
+        font-size: 10px;
+        padding: 6px 8px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container navbar">
+      <div class="brand">
+        <div class="brand-icon">K</div>
+        <div>
+          <div class="brand-name">KIPTENDEN YOUTHS</div>
+          <div class="brand-sub">WHATSAPP PAIRING</div>
+        </div>
+      </div>
+
+      <div class="online">
+        <span class="dot"></span>
+        Pairing Portal
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="eyebrow">SECURE WHATSAPP CONNECTION</div>
+      <h1>Connect Your <span>WhatsApp</span></h1>
+      <p>
+        Link your WhatsApp account to the Kiptenden Youths bot.
+        Generate a pairing code or scan a QR code, then obtain your SESSION_ID.
+      </p>
+    </section>
+
+    <section class="layout">
+      <div class="panel">
+        <h2>WhatsApp Pairing</h2>
+        <div class="muted">Choose your preferred linking method.</div>
+
+        <div class="tabs">
+          <button class="tab active" id="codeTab" type="button">
+            Pair Code
+          </button>
+          <button class="tab" id="qrTab" type="button">
+            QR Code
+          </button>
+        </div>
+
+        <div id="phoneForm">
+          <label for="phone">WHATSAPP PHONE NUMBER</label>
+          <input
+            id="phone"
+            type="tel"
+            inputmode="numeric"
+            autocomplete="tel"
+            placeholder="e.g. 254712345678"
+          >
+          <div class="hint">
+            Include your country code. For Kenya, start with 254.
+            Do not include the + sign or spaces.
+          </div>
+
+          <button class="btn" id="pairBtn" type="button">
+            Generate Pair Code
+          </button>
+        </div>
+
+        <div id="qrForm" class="hidden">
+          <p class="muted">
+            Generate a QR code and scan it from WhatsApp Linked Devices.
+          </p>
+          <button class="btn" id="qrBtn" type="button">
+            Generate QR Code
+          </button>
+        </div>
+
+        <div id="status" class="status" role="status" aria-live="polite"></div>
+
+        <div id="challenge" class="hidden">
+          <div id="codeChallenge" class="hidden">
+            <div class="code-box">
+              <div class="muted">YOUR WHATSAPP PAIRING CODE</div>
+              <div id="pairCode" class="pair-code">--------</div>
+              <div class="hint">Enter this code on your phone.</div>
+            </div>
+
+            <div class="instructions">
+              <h3>How to connect</h3>
+              <ol>
+                <li>Open WhatsApp on your phone.</li>
+                <li>Go to Settings → Linked Devices.</li>
+                <li>Tap Link a Device.</li>
+                <li>Select Link with phone number instead.</li>
+                <li>Enter the pairing code displayed above.</li>
+              </ol>
+            </div>
+          </div>
+
+          <div id="qrChallenge" class="hidden">
+            <div class="qr-box">
+              <img id="qrImage" alt="WhatsApp pairing QR code">
+              <p class="muted">Scan this QR code using WhatsApp.</p>
+            </div>
+
+            <div class="instructions">
+              <h3>How to connect</h3>
+              <ol>
+                <li>Open WhatsApp on your phone.</li>
+                <li>Go to Settings → Linked Devices.</li>
+                <li>Tap Link a Device.</li>
+                <li>Scan the QR code shown above.</li>
+              </ol>
+            </div>
+          </div>
+
+          <div id="pollStatus" class="status" aria-live="polite">
+            Waiting for WhatsApp linking...
+          </div>
+
+          <button class="btn secondary" id="cancelBtn" type="button">
+            Cancel / Start Again
+          </button>
+        </div>
+
+        <div id="result" class="hidden">
+          <div class="code-box">
+            <div class="success-text"><strong>WhatsApp linked successfully!</strong></div>
+            <p class="muted">Your generated SESSION_ID:</p>
+            <div id="sessionValue" class="session"></div>
+
+            <button id="copyBtn" class="copy-btn" type="button">
+              Copy SESSION_ID
+            </button>
+          </div>
+
+          <div class="notice">
+            Keep this session ID private. Anyone who obtains it may be able
+            to access your linked WhatsApp session.
+          </div>
+
+          <button id="againBtn" class="btn secondary" type="button">
+            Pair Another Account
+          </button>
+        </div>
+      </div>
+
+      <aside class="panel">
+        <h2>How It Works</h2>
+        <p class="muted">
+          Follow these steps to connect your WhatsApp account to the bot.
+        </p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <div>
+              <strong>Choose a Method</strong>
+              <p>Enter your phone number or select QR code pairing.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-number">2</div>
+            <div>
+              <strong>Link WhatsApp</strong>
+              <p>Complete the linking process using WhatsApp Linked Devices.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-number">3</div>
+            <div>
+              <strong>Copy SESSION_ID</strong>
+              <p>Copy the generated value after linking succeeds.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-number">4</div>
+            <div>
+              <strong>Deploy Your Bot</strong>
+              <p>
+                Add SESSION_ID to your bot service's Render environment
+                variables and redeploy.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="notice">
+          This page requires a running Node.js backend. Uploading only this
+          HTML file will not generate pairing codes or session IDs.
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <strong>KIPTENDEN YOUTHS</strong><br>
+      WhatsApp Bot Pairing Portal
+    </div>
+  </footer>
+
+  <script>
+    "use strict";
+
+    const $ = (id) => document.getElementById(id);
+
+    let pairingMode = "code";
+    let pollTimer = null;
+    let pollFailures = 0;
+    let isBusy = false;
+
+    function setStatus(message, type = "") {
+      const el = $("status");
+      el.textContent = message;
+      el.className = "status " + type;
+    }
+
+    function setPollStatus(message, type = "") {
+      const el = $("pollStatus");
+      el.textContent = message;
+      el.className = "status " + type;
+    }
+
+    function show(id) {
+      $(id).classList.remove("hidden");
+    }
+
+    function hide(id) {
+      $(id).classList.add("hidden");
+    }
+
+    function setMode(mode) {
+      pairingMode = mode;
+
+      $("codeTab").classList.toggle("active", mode === "code");
+      $("qrTab").classList.toggle("active", mode === "qr");
+
+      if (mode === "code") {
+        show("phoneForm");
+        hide("qrForm");
+      } else {
+        hide("phoneForm");
+        show("qrForm");
+      }
+
+      setStatus("");
+    }
+
+    async function readJson(response) {
+      try {
+        return await response.json();
+      } catch {
+        throw new Error("The server returned an invalid response.");
+      }
+    }
+
+    async function startPair() {
+      if (isBusy) return;
+
+      const phone = $("phone").value.trim().replace(/\D/g, "");
+
+      if (pairingMode === "code" &&
+          (phone.length < 7 || phone.length > 15)) {
+        setStatus("Enter a valid phone number with country code.", "error");
+        return;
+      }
+
+      isBusy = true;
+      $("pairBtn").disabled = true;
+      $("qrBtn").disabled = true;
+
+      setStatus("Starting WhatsApp pairing...");
+
+      try {
+        const endpoint = pairingMode === "code"
+          ? "/api/pair"
+          : "/api/pair/qr";
+
+        const options = {
+          method: "POST",
+          headers: { "Content-Type": "application/json" }
+        };
+
+        if (pairingMode === "code") {
+          options.body = JSON.stringify({ phone });
+        }
+
+        const response = await fetch(endpoint, options);
+        const data = await readJson(response);
+
+        if (!response.ok || !data.ok) {
+          throw new Error(data.error || "Could not start pairing.");
+        }
+
+        hide("phoneForm");
+        hide("qrForm");
+        hide("result");
+        show("challenge");
+
+        if (pairingMode === "code") {
+          show("codeChallenge");
+          hide("qrChallenge");
+          $("pairCode").textContent = "Waiting...";
+        } else {
+          hide("codeChallenge");
+          show("qrChallenge");
+          $("qrImage").removeAttribute("src");
+        }
+
+        pollFailures = 0;
+        setPollStatus("Waiting for WhatsApp pairing...");
+
+        clearInterval(pollTimer);
+        await checkStatus();
+        pollTimer = setInterval(checkStatus, 2000);
+
+      } catch (error) {
+        setStatus(error.message || "A network error occurred.", "error");
+        $("pairBtn").disabled = false;
+        $("qrBtn").disabled = false;
+      } finally {
+        isBusy = false;
+      }
+    }
+
+    async function checkStatus() {
+      try {
+        const response = await fetch("/api/pair/status", {
+          cache: "no-store"
+        });
+
+        const data = await readJson(response);
+
+        if (!response.ok) {
+          throw new Error("Unable to check pairing status.");
+        }
+
+        pollFailures = 0;
+
+        if (data.code) {
+          $("pairCode").textContent = data.code;
+        }
+
+        if (data.qrDataUrl) {
+          $("qrImage").src = data.qrDataUrl;
+        }
+
+        if (data.status === "requesting") {
+          setPollStatus("Connecting to WhatsApp...");
+        } else if (data.status === "restarting") {
+          setPollStatus("WhatsApp is restarting the connection...");
+        } else if (data.status === "ready") {
+          setPollStatus(
+            pairingMode === "code"
+              ? "Enter the code in WhatsApp Linked Devices."
+              : "Scan the QR code using WhatsApp Linked Devices."
+          );
+        }
+
+        if (data.status === "success" && data.sessionId) {
+          clearInterval(pollTimer);
+          pollTimer = null;
+
+          $("sessionValue").textContent = data.sessionId;
+          hide("challenge");
+          show("result");
+          setStatus("Session generated successfully.", "success-text");
+          $("pairBtn").disabled = false;
+          $("qrBtn").disabled = false;
+          return;
+        }
+
+        if (data.status === "error") {
+          clearInterval(pollTimer);
+          pollTimer = null;
+          setPollStatus(
+            data.error || "Pairing failed. Please try again.",
+            "error"
+          );
+        }
+
+      } catch (error) {
+        pollFailures++;
+
+        if (pollFailures >= 4) {
+          setPollStatus(
+            "Cannot reach the backend. Check whether your Render service is running.",
+            "error"
+          );
+        }
+      }
+    }
+
+    async function cancelPair() {
+      clearInterval(pollTimer);
+      pollTimer = null;
+
+      try {
+        await fetch("/api/pair/cancel", { method: "POST" });
+      } catch (_) {
+        // Reset the interface even if the cancellation request fails.
+      }
+
+      hide("challenge");
+      hide("result");
+
+      if (pairingMode === "code") {
+        show("phoneForm");
+      } else {
+        show("qrForm");
+      }
+
+      $("pairBtn").disabled = false;
+      $("qrBtn").disabled = false;
+      $("pairCode").textContent = "--------";
+      $("qrImage").removeAttribute("src");
+
+      setStatus("");
+      setPollStatus("");
+    }
+
+    async function copySession() {
+      const value = $("sessionValue").textContent;
+      if (!value) return;
+
+      try {
+        await navigator.clipboard.writeText(value);
+        $("copyBtn").textContent = "Copied Successfully!";
+      } catch (_) {
+        const area = document.createElement("textarea");
+        area.value = value;
+        document.body.appendChild(area);
+        area.select();
+
+        const copied = document.execCommand("copy");
+        area.remove();
+
+        $("copyBtn").textContent = copied
+          ? "Copied Successfully!"
+          : "Copy failed - select the session ID manually";
+      }
+
+      setTimeout(() => {
+        $("copyBtn").textContent = "Copy SESSION_ID";
+      }, 2500);
+    }
+
+    function resetPage() {
+      cancelPair();
+      $("phone").value = "";
+      setMode("code");
+    }
+
+    $("codeTab").addEventListener("click", () => setMode("code"));
+    $("qrTab").addEventListener("click", () => setMode("qr"));
+    $("pairBtn").addEventListener("click", startPair);
+    $("qrBtn").addEventListener("click", startPair);
+    $("cancelBtn").addEventListener("click", cancelPair);
+    $("copyBtn").addEventListener("click", copySession);
+    $("againBtn").addEventListener("click", resetPage);
+
+    $("phone").addEventListener("keydown", (event) => {
+      if (event.key === "Enter") startPair();
+    });
+  </script>
+</body>
+</html>
+
