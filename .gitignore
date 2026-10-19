@@ -1,0 +1,5 @@
+node_modules/
+pairing_temp/
+.env
+*.log
+.DS_Store
